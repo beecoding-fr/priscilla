@@ -1,0 +1,196 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// Auth.js Models
+// ============================================================================
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ============================================================================
+// Domain Models
+// ============================================================================
+
+enum UserRole {
+  ADMIN
+  JE // Young Entrepreneur
+  ES // Solidarity Company Representative
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  TRIALING
+  UNPAID
+}
+
+enum SubscriptionPlanCode {
+  BASIC
+  CLASSIC
+  PREMIUM
+}
+
+enum TransactionStatus {
+  PENDING
+  VALIDATED
+  REJECTED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime? @map("email_verified")
+  passwordHash  String?   @map("password_hash")
+  name          String?
+  image         String?
+  role          UserRole  @default(JE)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  accounts    Account[]
+  sessions    Session[]
+  
+  // JE-specific relations
+  subscription    Subscription?
+  pointsWallet    PointsWallet?
+  transactions    Transaction[]  @relation("JETransactions")
+  
+  // ES-specific relations
+  solidarityCompany   SolidarityCompany?
+
+  @@map("users")
+}
+
+model SubscriptionPlan {
+  id            String             @id @default(cuid())
+  code          SubscriptionPlanCode @unique
+  name          String
+  description   String?
+  priceMonthly  Int                // Price in cents
+  priceYearly   Int                // Price in cents
+  features      String[]
+  stripePriceIdMonthly String?     @map("stripe_price_id_monthly")
+  stripePriceIdYearly  String?     @map("stripe_price_id_yearly")
+  createdAt     DateTime           @default(now()) @map("created_at")
+  updatedAt     DateTime           @updatedAt @map("updated_at")
+
+  subscriptions Subscription[]
+
+  @@map("subscription_plans")
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  userId               String             @unique @map("user_id")
+  planId               String             @map("plan_id")
+  status               SubscriptionStatus @default(ACTIVE)
+  stripeCustomerId     String?            @map("stripe_customer_id")
+  stripeSubscriptionId String?            @map("stripe_subscription_id")
+  currentPeriodStart   DateTime?          @map("current_period_start")
+  currentPeriodEnd     DateTime?          @map("current_period_end")
+  cancelAtPeriodEnd    Boolean            @default(false) @map("cancel_at_period_end")
+  createdAt            DateTime           @default(now()) @map("created_at")
+  updatedAt            DateTime           @updatedAt @map("updated_at")
+
+  user User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan SubscriptionPlan @relation(fields: [planId], references: [id])
+
+  @@map("subscriptions")
+}
+
+model SolidarityCompany {
+  id          String   @id @default(cuid())
+  userId      String   @unique @map("user_id")
+  companyName String   @map("company_name")
+  description String?
+  sector      String?
+  address     String?
+  phone       String?
+  website     String?
+  isVerified  Boolean  @default(false) @map("is_verified")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@map("solidarity_companies")
+}
+
+model Transaction {
+  id                  String            @id @default(cuid())
+  jeUserId            String            @map("je_user_id")
+  solidarityCompanyId String            @map("solidarity_company_id")
+  amountCents         Int               @map("amount_cents")
+  description         String?
+  status              TransactionStatus @default(PENDING)
+  pointsEarned        Int               @default(0) @map("points_earned")
+  validatedAt         DateTime?         @map("validated_at")
+  createdAt           DateTime          @default(now()) @map("created_at")
+  updatedAt           DateTime          @updatedAt @map("updated_at")
+
+  jeUser            User              @relation("JETransactions", fields: [jeUserId], references: [id], onDelete: Cascade)
+  solidarityCompany SolidarityCompany @relation(fields: [solidarityCompanyId], references: [id], onDelete: Cascade)
+
+  @@map("transactions")
+}
+
+model PointsWallet {
+  id           String   @id @default(cuid())
+  userId       String   @unique @map("user_id")
+  totalPoints  Int      @default(0) @map("total_points")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("points_wallets")
+}
