@@ -7,6 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { FeaturedEntrepreneurs } from "@/ui/components/FeaturedEntrepreneurs";
+import { SolidarityCompaniesShowcase } from "@/ui/components/SolidarityCompaniesShowcase";
 
 export default function Home() {
   return (
@@ -24,12 +26,7 @@ export default function Home() {
         <div className="flex gap-4">
           <Link href="/register">
             <Button size="lg" className="text-lg px-8">
-              Commencer gratuitement
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button size="lg" variant="outline" className="text-lg px-8">
-              Se connecter
+              Commencer
             </Button>
           </Link>
         </div>
@@ -84,6 +81,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Featured Entrepreneurs Section */}
+      <FeaturedEntrepreneurs />
+
+      {/* Solidarity Companies Showcase */}
+      <SolidarityCompaniesShowcase />
 
       {/* Plans Section */}
       <section className="py-20 px-4">

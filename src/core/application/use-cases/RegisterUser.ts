@@ -7,7 +7,7 @@ export interface RegisterUserInput {
   email: string;
   password: string;
   name: string;
-  role?: UserRole;
+  role?: "JE"; // Seuls les JE peuvent s'auto-inscrire, les ES sont créées par l'admin
 }
 
 export interface RegisterUserOutput {

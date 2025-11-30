@@ -11,7 +11,6 @@ export const registerSchema = z.object({
     .string()
     .min(8, "Le mot de passe doit contenir au moins 8 caractères"),
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
-  role: z.enum(["JE", "ES"]),
 });
 
 export type RegisterInput = z.input<typeof registerSchema>;

@@ -41,27 +41,29 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center space-x-2">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex items-center">
           <span className="text-xl font-bold text-primary">
             SaaS Jeunes Entrepreneurs
           </span>
         </Link>
 
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center">
           {session?.user ? (
             <>
               <Link href="/dashboard">
-                <Button variant="ghost">Dashboard</Button>
+                <Button variant="ghost" size="sm">
+                  Dashboard
+                </Button>
               </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="relative h-10 w-10 rounded-full"
+                    className="relative h-9 w-9 rounded-full p-0"
                   >
-                    <Avatar className="h-10 w-10">
-                      <AvatarFallback>
+                    <Avatar className="h-9 w-9">
+                      <AvatarFallback className="text-sm">
                         {getInitials(session.user.name)}
                       </AvatarFallback>
                     </Avatar>
@@ -99,14 +101,9 @@ export function Navbar() {
               </DropdownMenu>
             </>
           ) : (
-            <>
-              <Link href="/login">
-                <Button variant="ghost">Connexion</Button>
-              </Link>
-              <Link href="/register">
-                <Button>S&apos;inscrire</Button>
-              </Link>
-            </>
+            <Link href="/login">
+              <Button size="sm">Se connecter</Button>
+            </Link>
           )}
         </nav>
       </div>

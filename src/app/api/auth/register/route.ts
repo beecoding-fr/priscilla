@@ -39,12 +39,14 @@ export async function POST(request: Request) {
       : stubEmailSender;
 
     // Execute use case
+    // Note: Seuls les JE peuvent s'inscrire via ce formulaire
+    // Les ES sont créées par l'admin Priscilla
     const registerUser = new RegisterUser(userRepository, emailSender);
     const result = await registerUser.execute({
       email: validatedData.email,
       password: validatedData.password,
       name: validatedData.name,
-      role: validatedData.role,
+      role: "JE",
     });
 
     return NextResponse.json(result, { status: 201 });

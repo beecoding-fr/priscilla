@@ -28,7 +28,6 @@ import { toast } from "sonner";
 
 export function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<"JE" | "ES">("JE");
   const router = useRouter();
 
   const form = useForm<RegisterInput>({
@@ -37,7 +36,6 @@ export function RegisterForm() {
       email: "",
       password: "",
       name: "",
-      role: "JE",
     },
   });
 
@@ -48,7 +46,7 @@ export function RegisterForm() {
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, role: selectedRole }),
+        body: JSON.stringify(data),
       });
 
       const result = await response.json();
@@ -80,29 +78,6 @@ export function RegisterForm() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            {/* Role Selection */}
-            <div className="space-y-2">
-              <FormLabel>Je suis</FormLabel>
-              <div className="grid grid-cols-2 gap-2">
-                <Button
-                  type="button"
-                  variant={selectedRole === "JE" ? "default" : "outline"}
-                  className="w-full"
-                  onClick={() => setSelectedRole("JE")}
-                >
-                  Jeune Entrepreneur
-                </Button>
-                <Button
-                  type="button"
-                  variant={selectedRole === "ES" ? "default" : "outline"}
-                  className="w-full"
-                  onClick={() => setSelectedRole("ES")}
-                >
-                  Entreprise Solidaire
-                </Button>
-              </div>
-            </div>
-
             <FormField
               control={form.control}
               name="name"
