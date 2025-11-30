@@ -1,4 +1,4 @@
-export type SubscriptionPlanCode = "BASIC" | "CLASSIC" | "PREMIUM";
+export type SubscriptionPlanCode = "ESSENTIEL" | "STANDARD" | "PREMIUM";
 
 export interface SubscriptionPlanProps {
   id: string;

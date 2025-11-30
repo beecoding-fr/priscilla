@@ -72,8 +72,8 @@ enum SubscriptionStatus {
 }
 
 enum SubscriptionPlanCode {
-  BASIC
-  CLASSIC
+  ESSENTIEL
+  STANDARD
   PREMIUM
 }
 

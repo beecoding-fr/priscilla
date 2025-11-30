@@ -65,13 +65,30 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader className="space-y-1">
+    <Card className="w-full max-w-md border-0 shadow-2xl shadow-primary/10">
+      <CardHeader className="space-y-1 pb-6">
+        <div className="flex justify-center mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/25">
+            <svg
+              className="w-6 h-6 text-primary-foreground"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              />
+            </svg>
+          </div>
+        </div>
         <CardTitle className="text-2xl font-bold text-center">
-          Connexion
+          Bon retour !
         </CardTitle>
         <CardDescription className="text-center">
-          Connectez-vous à votre compte
+          Connectez-vous pour accéder à votre espace
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -107,7 +124,11 @@ export function LoginForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-full h-11 shadow-lg shadow-primary/25"
+              disabled={isLoading}
+            >
               {isLoading ? "Connexion..." : "Se connecter"}
             </Button>
           </form>

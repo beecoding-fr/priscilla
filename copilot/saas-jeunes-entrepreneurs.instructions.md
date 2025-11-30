@@ -63,7 +63,7 @@ Security guidelines:
 
 - Use **Stripe** for:
 
-  - Subscription plans (Basic, Classic, Premium) for JEs.
+  - Subscription plans (Essentiel, Standard, Premium) for JEs.
   - Potential future one-off payments if needed.
 
 - Model:

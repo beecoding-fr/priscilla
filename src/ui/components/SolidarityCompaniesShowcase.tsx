@@ -11,39 +11,62 @@ const solidarityCompanies = [
 
 export function SolidarityCompaniesShowcase() {
   return (
-    <section className="py-16 px-4 bg-muted/30 border-y">
+    <section className="py-20 px-4 bg-gradient-to-b from-muted/30 to-background border-y">
       <div className="container mx-auto">
-        <h2 className="text-xl font-semibold text-center text-muted-foreground mb-8">
-          Ils font confiance à notre réseau d&apos;entreprises solidaires
-        </h2>
+        <div className="text-center mb-12">
+          <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium rounded-full bg-primary/10 text-primary">
+            Partenaires
+          </span>
+          <h2 className="text-xl md:text-2xl font-semibold text-muted-foreground mb-2">
+            Ils font confiance à notre réseau d&apos;entreprises solidaires
+          </h2>
+        </div>
 
         {/* Logo Grid */}
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+        <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 max-w-4xl mx-auto">
           {solidarityCompanies.map((company) => (
             <div
               key={company.id}
-              className="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity cursor-default"
+              className="group flex flex-col items-center gap-2 p-4 rounded-2xl hover:bg-muted/50 transition-all duration-300"
             >
               {/* Placeholder Logo */}
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-lg bg-background border-2 border-muted flex items-center justify-center shadow-sm">
-                <span className="text-2xl md:text-3xl font-bold text-primary/60">
+              <div className="w-16 h-16 md:w-18 md:h-18 rounded-2xl bg-gradient-to-br from-background to-muted border-2 border-border/50 flex items-center justify-center shadow-sm group-hover:shadow-md group-hover:border-primary/30 group-hover:scale-105 transition-all duration-300">
+                <span className="text-2xl md:text-3xl font-bold text-gradient">
                   {company.name.charAt(0)}
                 </span>
               </div>
-              <span className="text-xs text-muted-foreground font-medium">
+              <span className="text-xs text-muted-foreground font-medium group-hover:text-foreground transition-colors">
                 {company.name}
               </span>
             </div>
           ))}
         </div>
 
-        <p className="text-center text-sm text-muted-foreground mt-8">
-          Et plus de{" "}
-          <span className="font-semibold text-foreground">
-            150+ entreprises solidaires
-          </span>{" "}
-          partenaires
-        </p>
+        <div className="text-center mt-12">
+          <p className="text-sm text-muted-foreground mb-4">
+            Et plus de{" "}
+            <span className="font-semibold text-foreground">
+              150+ entreprises solidaires
+            </span>{" "}
+            partenaires
+          </p>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+            Rejoindre le réseau
+          </div>
+        </div>
       </div>
     </section>
   );

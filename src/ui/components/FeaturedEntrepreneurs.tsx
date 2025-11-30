@@ -69,21 +69,26 @@ export function FeaturedEntrepreneurs() {
   );
 
   return (
-    <section className="py-20 px-4">
+    <section className="py-24 px-4">
       <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-4">
-          Jeunes Entrepreneurs à la une
-        </h2>
-        <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">
-          Découvrez les entrepreneurs mis en avant par Priscilla ce mois-ci.
-        </p>
+        <div className="text-center mb-16">
+          <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium rounded-full bg-accent/10 text-accent">
+            Communauté
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Jeunes Entrepreneurs à la une
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            Découvrez les entrepreneurs mis en avant par Priscilla ce mois-ci.
+          </p>
+        </div>
 
         <div className="relative max-w-5xl mx-auto">
           {/* Navigation Buttons */}
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 z-10 hidden md:flex"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 z-10 hidden md:flex rounded-full shadow-lg hover:shadow-xl hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
             onClick={goLeft}
             disabled={currentIndex === 0}
           >
@@ -93,7 +98,7 @@ export function FeaturedEntrepreneurs() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 z-10 hidden md:flex"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 z-10 hidden md:flex rounded-full shadow-lg hover:shadow-xl hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
             onClick={goRight}
             disabled={currentIndex === maxIndex}
           >
@@ -105,11 +110,12 @@ export function FeaturedEntrepreneurs() {
             {visibleEntrepreneurs.map((entrepreneur) => (
               <Card
                 key={entrepreneur.id}
-                className="transition-all duration-300 hover:shadow-lg"
+                className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                <CardHeader className="text-center pb-2">
-                  <Avatar className="w-16 h-16 mx-auto mb-3">
-                    <AvatarFallback className="bg-primary/10 text-primary text-lg">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <CardHeader className="text-center pb-2 relative">
+                  <Avatar className="w-18 h-18 mx-auto mb-4 ring-4 ring-primary/10 group-hover:ring-primary/20 transition-all">
+                    <AvatarFallback className="bg-gradient-to-br from-primary/20 to-accent/20 text-primary text-lg font-semibold">
                       {entrepreneur.name
                         .split(" ")
                         .map((n) => n[0])
@@ -117,21 +123,31 @@ export function FeaturedEntrepreneurs() {
                     </AvatarFallback>
                   </Avatar>
                   <CardTitle className="text-lg">{entrepreneur.name}</CardTitle>
-                  <p className="text-primary font-medium">
+                  <p className="text-primary font-semibold">
                     {entrepreneur.project}
                   </p>
                 </CardHeader>
-                <CardContent className="text-center">
-                  <Badge variant="secondary" className="mb-3">
+                <CardContent className="text-center relative">
+                  <Badge variant="secondary" className="mb-3 bg-secondary/80">
                     {entrepreneur.sector}
                   </Badge>
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
                     {entrepreneur.description}
                   </p>
-                  <div className="flex items-center justify-center gap-1 text-sm">
-                    <span className="text-yellow-500">⭐</span>
-                    <span className="font-semibold">{entrepreneur.points}</span>
-                    <span className="text-muted-foreground">points</span>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10">
+                    <svg
+                      className="w-4 h-4 text-accent"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <span className="font-semibold text-sm">
+                      {entrepreneur.points}
+                    </span>
+                    <span className="text-muted-foreground text-sm">
+                      points
+                    </span>
                   </div>
                 </CardContent>
               </Card>

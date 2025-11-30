@@ -66,8 +66,25 @@ export function RegisterForm() {
   }
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader className="space-y-1">
+    <Card className="w-full max-w-md border-0 shadow-2xl shadow-primary/10">
+      <CardHeader className="space-y-1 pb-6">
+        <div className="flex justify-center mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/25">
+            <svg
+              className="w-6 h-6 text-primary-foreground"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+              />
+            </svg>
+          </div>
+        </div>
         <CardTitle className="text-2xl font-bold text-center">
           Créer un compte
         </CardTitle>
@@ -121,7 +138,11 @@ export function RegisterForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-full h-11 shadow-lg shadow-primary/25"
+              disabled={isLoading}
+            >
               {isLoading ? "Création..." : "Créer mon compte"}
             </Button>
           </form>

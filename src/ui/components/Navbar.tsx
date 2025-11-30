@@ -40,19 +40,24 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center">
-          <span className="text-xl font-bold text-primary">
-            SaaS Jeunes Entrepreneurs
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
+      <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-md shadow-primary/25">
+            <span className="text-primary-foreground font-bold text-sm">
+              JE
+            </span>
+          </div>
+          <span className="text-lg font-semibold hidden sm:block">
+            Jeunes <span className="text-primary">Entrepreneurs</span>
           </span>
         </Link>
 
-        <nav className="flex items-center">
+        <nav className="flex items-center gap-2">
           {session?.user ? (
             <>
               <Link href="/dashboard">
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="hidden sm:flex">
                   Dashboard
                 </Button>
               </Link>
@@ -60,10 +65,10 @@ export function Navbar() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="relative h-9 w-9 rounded-full p-0"
+                    className="relative h-10 w-10 rounded-full p-0 ring-2 ring-primary/20 hover:ring-primary/40 transition-all"
                   >
                     <Avatar className="h-9 w-9">
-                      <AvatarFallback className="text-sm">
+                      <AvatarFallback className="text-sm bg-primary/10 text-primary font-medium">
                         {getInitials(session.user.name)}
                       </AvatarFallback>
                     </Avatar>
@@ -102,7 +107,9 @@ export function Navbar() {
             </>
           ) : (
             <Link href="/login">
-              <Button size="sm">Se connecter</Button>
+              <Button size="sm" className="shadow-md shadow-primary/20">
+                Se connecter
+              </Button>
             </Link>
           )}
         </nav>
