@@ -1,7 +1,4 @@
-import {
-  PrismaClient,
-  SubscriptionStatus as PrismaSubscriptionStatus,
-} from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Subscription } from "@/core/domain";
 import {
   SubscriptionRepositoryPort,
@@ -48,7 +45,7 @@ export class PrismaSubscriptionRepository
         planId: data.planId,
         stripeCustomerId: data.stripeCustomerId,
         stripeSubscriptionId: data.stripeSubscriptionId,
-        status: (data.status ?? "ACTIVE") as PrismaSubscriptionStatus,
+        status: data.status ?? "ACTIVE",
         currentPeriodStart: data.currentPeriodStart,
         currentPeriodEnd: data.currentPeriodEnd,
       },
@@ -64,7 +61,7 @@ export class PrismaSubscriptionRepository
     const subscription = await this.prisma.subscription.update({
       where: { id },
       data: {
-        status: data.status as PrismaSubscriptionStatus | undefined,
+        status: data.status,
         stripeSubscriptionId: data.stripeSubscriptionId,
         currentPeriodStart: data.currentPeriodStart,
         currentPeriodEnd: data.currentPeriodEnd,

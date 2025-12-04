@@ -1,7 +1,4 @@
-import {
-  PrismaClient,
-  TransactionStatus as PrismaTransactionStatus,
-} from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Transaction } from "@/core/domain";
 import {
   TransactionRepositoryPort,
@@ -26,7 +23,7 @@ export class PrismaTransactionRepository implements TransactionRepositoryPort {
       where: {
         jeUserId: filters?.jeUserId,
         solidarityCompanyId: filters?.solidarityCompanyId,
-        status: filters?.status as PrismaTransactionStatus | undefined,
+        status: filters?.status,
       },
       orderBy: { createdAt: "desc" },
     });
@@ -65,7 +62,7 @@ export class PrismaTransactionRepository implements TransactionRepositoryPort {
     const transaction = await this.prisma.transaction.update({
       where: { id },
       data: {
-        status: data.status as PrismaTransactionStatus | undefined,
+        status: data.status,
         pointsEarned: data.pointsEarned,
         validatedAt: data.validatedAt,
       },

@@ -1,7 +1,4 @@
-import {
-  PrismaClient,
-  SubscriptionPlanCode as PrismaSubscriptionPlanCode,
-} from "@prisma/client";
+import { PrismaClient, $Enums } from "@prisma/client";
 import { SubscriptionPlan, SubscriptionPlanCode } from "@/core/domain";
 import { SubscriptionPlanRepositoryPort } from "@/core/application/ports";
 import { SubscriptionPlanMapper } from "./mappers";
@@ -22,7 +19,7 @@ export class PrismaSubscriptionPlanRepository
     code: SubscriptionPlanCode
   ): Promise<SubscriptionPlan | null> {
     const plan = await this.prisma.subscriptionPlan.findUnique({
-      where: { code: code as PrismaSubscriptionPlanCode },
+      where: { code: code as $Enums.SubscriptionPlanCode },
     });
     return plan ? SubscriptionPlanMapper.toDomain(plan) : null;
   }

@@ -1,4 +1,4 @@
-import { PrismaClient, UserRole as PrismaUserRole } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { User, UserRole } from "@/core/domain";
 import {
   UserRepositoryPort,
@@ -33,7 +33,7 @@ export class PrismaUserRepository implements UserRepositoryPort {
 
   async findByRole(role: UserRole): Promise<User[]> {
     const users = await this.prisma.user.findMany({
-      where: { role: role as PrismaUserRole },
+      where: { role },
       orderBy: { createdAt: "desc" },
     });
     return users.map(UserMapper.toDomain);
@@ -45,7 +45,7 @@ export class PrismaUserRepository implements UserRepositoryPort {
         email: data.email.toLowerCase(),
         name: data.name,
         passwordHash: data.passwordHash,
-        role: data.role as PrismaUserRole,
+        role: data.role,
       },
     });
     return UserMapper.toDomain(user);
@@ -56,7 +56,7 @@ export class PrismaUserRepository implements UserRepositoryPort {
       where: { id },
       data: {
         name: data.name,
-        role: data.role as PrismaUserRole | undefined,
+        role: data.role,
       },
     });
     return UserMapper.toDomain(user);
