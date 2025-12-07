@@ -2,13 +2,15 @@ import { User, UserRole } from "@/core/domain";
 
 export interface CreateUserData {
   email: string;
-  name: string | null;
+  firstName: string | null;
+  lastName: string | null;
   passwordHash: string;
   role: UserRole;
 }
 
 export interface UpdateUserData {
-  name?: string;
+  firstName?: string;
+  lastName?: string;
   role?: UserRole;
 }
 

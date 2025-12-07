@@ -43,7 +43,8 @@ export class PrismaUserRepository implements UserRepositoryPort {
     const user = await this.prisma.user.create({
       data: {
         email: data.email.toLowerCase(),
-        name: data.name,
+        firstName: data.firstName,
+        lastName: data.lastName,
         passwordHash: data.passwordHash,
         role: data.role,
       },
@@ -55,7 +56,8 @@ export class PrismaUserRepository implements UserRepositoryPort {
     const user = await this.prisma.user.update({
       where: { id },
       data: {
-        name: data.name,
+        firstName: data.firstName,
+        lastName: data.lastName,
         role: data.role,
       },
     });

@@ -6,7 +6,8 @@ export class UserMapper {
     return User.create({
       id: prismaUser.id,
       email: Email.create(prismaUser.email),
-      name: prismaUser.name,
+      firstName: prismaUser.firstName,
+      lastName: prismaUser.lastName,
       role: prismaUser.role as UserRole,
       emailVerified: prismaUser.emailVerified,
       createdAt: prismaUser.createdAt,

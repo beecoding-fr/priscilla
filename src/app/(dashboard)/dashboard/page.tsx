@@ -35,7 +35,11 @@ export default async function DashboardPage() {
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-2">
             Bienvenue,{" "}
-            <span className="text-gradient">{user.name || "Utilisateur"}</span>{" "}
+            <span className="text-gradient">
+              {user.firstName || user.lastName
+                ? `${user.firstName} ${user.lastName}`.trim()
+                : "Utilisateur"}
+            </span>{" "}
             !
           </h1>
           <p className="text-muted-foreground text-lg">

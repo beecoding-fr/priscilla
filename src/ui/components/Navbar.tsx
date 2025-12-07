@@ -73,7 +73,11 @@ export function Navbar() {
                   >
                     <Avatar className="h-9 w-9">
                       <AvatarFallback className="text-sm bg-muted text-foreground font-medium">
-                        {getInitials(session.user.name)}
+                        {getInitials(
+                          `${session.user.firstName || ""} ${
+                            session.user.lastName || ""
+                          }`
+                        )}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -82,7 +86,7 @@ export function Navbar() {
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1.5">
                       <p className="text-sm font-medium leading-none">
-                        {session.user.name}
+                        {session.user.firstName} {session.user.lastName}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {session.user.email}

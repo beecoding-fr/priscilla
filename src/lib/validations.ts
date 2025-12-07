@@ -36,8 +36,8 @@ export const contactSchema = z.object({
   lastName: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
   email: z.string().email("Email invalide"),
   phone: z.string().optional(),
-  userType: z.enum(["JE", "ES", "OTHER"], {
-    required_error: "Veuillez sélectionner votre profil",
+  userType: z.enum(["JE", "ES", "OTHER"]).refine((val) => val !== undefined, {
+    message: "Veuillez sélectionner votre profil",
   }),
   companyName: z.string().optional(),
   subject: z.string().min(5, "Le sujet doit contenir au moins 5 caractères"),

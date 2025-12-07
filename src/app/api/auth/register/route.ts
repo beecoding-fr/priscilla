@@ -55,7 +55,8 @@ export async function POST(request: Request) {
     const result = await registerUser.execute({
       email: validatedData.email,
       password: validatedData.password,
-      name: validatedData.name,
+      firstName: validatedData.firstName,
+      lastName: validatedData.lastName,
       role: "JE",
     });
 

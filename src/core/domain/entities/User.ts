@@ -5,7 +5,8 @@ export type UserRole = "ADMIN" | "JE" | "ES";
 export interface UserProps {
   id: string;
   email: Email;
-  name: string | null;
+  firstName: string | null;
+  lastName: string | null;
   role: UserRole;
   emailVerified: Date | null;
   createdAt: Date;
@@ -27,8 +28,12 @@ export class User {
     return this.props.email;
   }
 
-  get name(): string | null {
-    return this.props.name;
+  get firstName(): string | null {
+    return this.props.firstName;
+  }
+
+  get lastName(): string | null {
+    return this.props.lastName;
   }
 
   get role(): UserRole {

@@ -57,9 +57,13 @@ export class SubscribeToPlan {
 
     // Create Stripe customer
     // Note: In a production app, we would store and reuse the customerId
+    const fullName =
+      user.firstName && user.lastName
+        ? `${user.firstName} ${user.lastName}`
+        : user.firstName || user.lastName;
     const { customerId } = await this.paymentProvider.createCustomer(
       user.email.getValue(),
-      user.name ?? undefined
+      fullName ?? undefined
     );
 
     // Create checkout session

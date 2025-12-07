@@ -6,7 +6,8 @@ import { ValidationError } from "@/core/domain/errors";
 export interface RegisterUserInput {
   email: string;
   password: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   role?: "JE"; // Seuls les JE peuvent s'auto-inscrire, les ES sont créées par l'admin
 }
 
@@ -14,7 +15,8 @@ export interface RegisterUserOutput {
   user: {
     id: string;
     email: string;
-    name: string | null;
+    firstName: string | null;
+    lastName: string | null;
     role: UserRole;
   };
 }
@@ -50,17 +52,19 @@ export class RegisterUser {
     // Create user
     const user = await this.userRepository.create({
       email: input.email,
-      name: input.name,
+      firstName: input.firstName,
+      lastName: input.lastName,
       passwordHash,
       role: input.role ?? "JE",
     });
 
     // Send welcome email
     try {
-      await this.emailSender.sendWelcomeEmail(
-        user.email.getValue(),
-        user.name ?? "there"
-      );
+      const fullName =
+        user.firstName && user.lastName
+          ? `${user.firstName} ${user.lastName}`
+          : user.firstName || user.lastName || "there";
+      await this.emailSender.sendWelcomeEmail(user.email.getValue(), fullName);
     } catch (error) {
       // Log but don't fail registration
       console.error("Failed to send welcome email:", error);
@@ -70,7 +74,8 @@ export class RegisterUser {
       user: {
         id: user.id,
         email: user.email.getValue(),
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         role: user.role,
       },
     };

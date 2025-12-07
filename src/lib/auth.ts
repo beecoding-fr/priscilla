@@ -10,7 +10,8 @@ declare module "next-auth" {
     user: {
       id: string;
       email: string;
-      name: string | null;
+      firstName: string | null;
+      lastName: string | null;
       role: UserRole;
       image?: string | null;
     };
@@ -69,7 +70,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return {
           id: user.id,
           email: user.email,
-          name: user.name,
+          firstName: user.firstName,
+          lastName: user.lastName,
           role: user.role as UserRole,
           image: user.image,
         };
