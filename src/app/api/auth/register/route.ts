@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { registerSchema } from "@/lib/validations";
-import { RegisterUser } from "@/core/application";
+import { RegisterUser, EmailSenderPort } from "@/core/application";
 import {
   prisma,
   PrismaUserRepository,
@@ -9,18 +9,28 @@ import {
 } from "@/core/infrastructure";
 import { ValidationError } from "@/core/domain";
 
-// Stub email sender for development when RESEND_API_KEY is not set
-const stubEmailSender = {
-  sendWelcomeEmail: async () => {
+/** Stub email sender for development when RESEND_API_KEY is not set */
+const stubEmailSender: EmailSenderPort = {
+  sendWelcomeEmail: async (_to: string, _name: string): Promise<void> => {
     console.log("[Stub] Welcome email would be sent");
   },
-  sendSubscriptionConfirmation: async () => {
+  sendSubscriptionConfirmation: async (
+    _to: string,
+    _name: string,
+    _planName: string
+  ): Promise<void> => {
     console.log("[Stub] Subscription confirmation would be sent");
   },
-  sendPasswordReset: async () => {
+  sendPasswordReset: async (_to: string, _resetLink: string): Promise<void> => {
     console.log("[Stub] Password reset email would be sent");
   },
-  sendTransactionConfirmation: async () => {
+  sendTransactionConfirmation: async (
+    _to: string,
+    _name: string,
+    _amount: string,
+    _companyName: string,
+    _pointsEarned: number
+  ): Promise<void> => {
     console.log("[Stub] Transaction confirmation would be sent");
   },
 };

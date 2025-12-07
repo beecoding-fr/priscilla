@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Sparkles, LayoutDashboard, Settings, LogOut } from "lucide-react";
 
 export function Navbar() {
   const { data: session } = useSession();
@@ -40,24 +41,27 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
       <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-md shadow-primary/25">
-            <span className="text-primary-foreground font-bold text-sm">
-              JE
-            </span>
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
+            <Sparkles className="w-4.5 h-4.5 text-primary-foreground" />
           </div>
-          <span className="text-lg font-semibold hidden sm:block">
+          <span className="text-lg font-semibold hidden sm:block tracking-tight">
             Jeunes <span className="text-primary">Entrepreneurs</span>
           </span>
         </Link>
 
-        <nav className="flex items-center gap-2">
+        <nav className="flex items-center gap-3">
           {session?.user ? (
             <>
               <Link href="/dashboard">
-                <Button variant="ghost" size="sm" className="hidden sm:flex">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="hidden sm:flex gap-2 text-muted-foreground hover:text-foreground"
+                >
+                  <LayoutDashboard className="w-4 h-4" />
                   Dashboard
                 </Button>
               </Link>
@@ -65,10 +69,10 @@ export function Navbar() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="relative h-10 w-10 rounded-full p-0 ring-2 ring-primary/20 hover:ring-primary/40 transition-all"
+                    className="relative h-10 w-10 rounded-full p-0 ring-2 ring-border/50 hover:ring-primary/30 transition-all duration-200"
                   >
                     <Avatar className="h-9 w-9">
-                      <AvatarFallback className="text-sm bg-primary/10 text-primary font-medium">
+                      <AvatarFallback className="text-sm bg-muted text-foreground font-medium">
                         {getInitials(session.user.name)}
                       </AvatarFallback>
                     </Avatar>
@@ -76,41 +80,64 @@ export function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
-                    <div className="flex flex-col space-y-1">
+                    <div className="flex flex-col space-y-1.5">
                       <p className="text-sm font-medium leading-none">
                         {session.user.name}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {session.user.email}
                       </p>
-                      <p className="text-xs leading-none text-muted-foreground">
+                      <span className="inline-flex w-fit text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary">
                         {getRoleBadge(session.user.role)}
-                      </p>
+                      </span>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard">Dashboard</Link>
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      <LayoutDashboard className="w-4 h-4" />
+                      Dashboard
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/settings">Paramètres</Link>
+                    <Link
+                      href="/dashboard/settings"
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      <Settings className="w-4 h-4" />
+                      Paramètres
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    className="text-red-600 cursor-pointer"
+                    className="text-destructive cursor-pointer flex items-center gap-2"
                     onClick={() => signOut({ callbackUrl: "/" })}
                   >
+                    <LogOut className="w-4 h-4" />
                     Se déconnecter
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </>
           ) : (
-            <Link href="/login">
-              <Button size="sm" className="shadow-md shadow-primary/20">
-                Se connecter
-              </Button>
-            </Link>
+            <div className="flex items-center gap-2">
+              {/* <Link href="/login">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                  Connexion
+                </Button>
+              </Link> */}
+              <Link href="/login">
+                <Button
+                  size="sm"
+                  className="rounded-lg shadow-md shadow-primary/20"
+                >
+                  Se connnecter
+                </Button>
+              </Link>
+            </div>
           )}
         </nav>
       </div>

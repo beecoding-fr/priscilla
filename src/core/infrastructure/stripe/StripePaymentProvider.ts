@@ -37,32 +37,47 @@ export class StripePaymentProvider implements PaymentProviderPort {
     customerId: string,
     priceId: string
   ): Promise<CreateSubscriptionResult> {
-    const response = await this.stripe.subscriptions.create({
+    const subscription = await this.stripe.subscriptions.create({
       customer: customerId,
       items: [{ price: priceId }],
       payment_behavior: "default_incomplete",
       expand: ["latest_invoice.payment_intent"],
     });
 
-    // Access the subscription data
-    const subscription = response as unknown as {
-      id: string;
-      status: string;
-      current_period_start: number;
-      current_period_end: number;
-      latest_invoice?: {
-        payment_intent?: {
-          client_secret?: string;
-        };
-      };
-    };
+    // Extract client secret from expanded invoice if available
+    const latestInvoice = subscription.latest_invoice;
+    let clientSecret: string | undefined;
+
+    if (
+      latestInvoice &&
+      typeof latestInvoice === "object" &&
+      "payment_intent" in latestInvoice
+    ) {
+      const paymentIntent = latestInvoice.payment_intent;
+      if (
+        paymentIntent &&
+        typeof paymentIntent === "object" &&
+        "client_secret" in paymentIntent &&
+        typeof paymentIntent.client_secret === "string"
+      ) {
+        clientSecret = paymentIntent.client_secret;
+      }
+    }
+
+    // In Stripe SDK v20+, current_period_start/end are on SubscriptionItem, not Subscription
+    // Use the first item's billing period, or fall back to subscription start_date
+    const firstItem = subscription.items.data[0];
+    const currentPeriodStart =
+      firstItem?.current_period_start ?? subscription.start_date;
+    const currentPeriodEnd =
+      firstItem?.current_period_end ?? subscription.start_date;
 
     return {
       subscriptionId: subscription.id,
       status: subscription.status,
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      clientSecret: subscription.latest_invoice?.payment_intent?.client_secret,
+      currentPeriodStart: new Date(currentPeriodStart * 1000),
+      currentPeriodEnd: new Date(currentPeriodEnd * 1000),
+      clientSecret,
     };
   }
 

@@ -221,7 +221,72 @@ For UI and UX:
 - Keep dashboards simple and readable:
   - Use headings, spacing, and cards
   - Prefer clear metrics and charts over dense tables when possible
-  - Highlight key actions (CTA buttons, primary flows like “Create transaction”, “Invite ES”, “Subscribe now”)
+  - Highlight key actions (CTA buttons, primary flows like "Create transaction", "Invite ES", "Subscribe now")
+
+## Design System & Visual Guidelines
+
+### Color Palette
+
+Use a professional, corporate color scheme defined in `globals.css`:
+
+- **Primary**: Deep navy blue (`oklch 0.45 0.16 250`) — trustworthy, professional
+- **Accent**: Teal/cyan (`oklch 0.65 0.14 180`) — modern, growth-oriented
+- **Success**: Green (`oklch 0.60 0.16 155`)
+- **Muted/Secondary**: Warm slate tones for backgrounds and secondary text
+- **Border radius**: `0.625rem` (10px) for a slightly rounded, modern look
+
+### Icons
+
+- Use **Lucide React** exclusively for icons across the app
+- Common icons used:
+  - Navigation: `Sparkles`, `LayoutDashboard`, `Settings`, `LogOut`
+  - Actions: `ArrowRight`, `Plus`, `Check`, `Star`
+  - Features: `Rocket`, `Users`, `Award`, `Zap`, `Target`, `TrendingUp`
+  - Forms: `Mail`, `Lock`, `User`, `LogIn`, `UserPlus`
+
+### Layout & Spacing
+
+- Use generous vertical padding for sections: `py-28` for major sections
+- Container max-width: `max-w-5xl` to `max-w-6xl` for content areas
+- Card gaps: `gap-5` to `gap-8` depending on content density
+- Form spacing: `space-y-5` between form fields
+
+### Cards & Surfaces
+
+- Use subtle borders: `border border-border/50`
+- Light shadows: `shadow-xl shadow-primary/5`
+- Backdrop blur for floating elements: `bg-card/80 backdrop-blur-sm`
+- Hover states with border transitions: `hover:border-border`
+
+### Buttons
+
+- Primary buttons: `rounded-lg` or `rounded-xl`, with shadow `shadow-md shadow-primary/20`
+- Icon buttons should include arrow animations on hover: `group-hover:translate-x-1`
+- Ghost buttons for secondary actions
+
+### Forms (Login/Register)
+
+- Input fields with icons on the left using absolute positioning
+- Input height: `h-11` for comfortable touch targets
+- Rounded inputs: `rounded-lg`
+- Labels: `text-sm font-medium`
+- Registration form uses separate **firstName** and **lastName** fields (grid 2 columns)
+- Login form includes "Mot de passe oublié ?" link
+
+### Navbar
+
+- Sticky header with backdrop blur: `backdrop-blur-xl`
+- Logo uses `Sparkles` icon with primary background
+- Shows "Connexion" (ghost) + "S'inscrire" (primary) buttons for visitors
+- User dropdown menu includes icons for each action
+- Role displayed as uppercase badge with colored background
+
+### Decorative Elements
+
+- Subtle gradient blobs in backgrounds: `bg-primary/3`, `bg-accent/4`
+- Grid pattern overlay on hero sections
+- Use `blur-[100px]` or `blur-[120px]` for soft ambient effects
+- Avoid overly saturated or distracting decorations
 
 # How I want you to work (inspired by Awesome Copilot)
 

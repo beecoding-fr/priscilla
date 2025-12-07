@@ -55,24 +55,12 @@ export class SubscribeToPlan {
       throw new ValidationError("User already has an active subscription");
     }
 
-    // Create Stripe customer if needed
-    let customerId: string;
-    if (existingSubscription) {
-      // We'd need to store customerId somewhere - for now, create new
-      const { customerId: newCustomerId } =
-        await this.paymentProvider.createCustomer(
-          user.email.getValue(),
-          user.name ?? undefined
-        );
-      customerId = newCustomerId;
-    } else {
-      const { customerId: newCustomerId } =
-        await this.paymentProvider.createCustomer(
-          user.email.getValue(),
-          user.name ?? undefined
-        );
-      customerId = newCustomerId;
-    }
+    // Create Stripe customer
+    // Note: In a production app, we would store and reuse the customerId
+    const { customerId } = await this.paymentProvider.createCustomer(
+      user.email.getValue(),
+      user.name ?? undefined
+    );
 
     // Create checkout session
     // In a real implementation, you'd have stripePriceIdMonthly on the plan

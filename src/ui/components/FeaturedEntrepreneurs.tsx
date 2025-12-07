@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 const entrepreneurs = [
   {
@@ -69,26 +69,27 @@ export function FeaturedEntrepreneurs() {
   );
 
   return (
-    <section className="py-24 px-4">
-      <div className="container mx-auto">
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium rounded-full bg-accent/10 text-accent">
+    <section className="py-28 px-4">
+      <div className="container mx-auto max-w-6xl">
+        <div className="text-center mb-14">
+          <span className="inline-block px-3.5 py-1 mb-5 text-xs font-semibold uppercase tracking-wider rounded-full bg-accent/8 text-accent border border-accent/15">
             Communauté
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Jeunes Entrepreneurs à la une
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-4">
+            Entrepreneurs à la une
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Découvrez les entrepreneurs mis en avant par Priscilla ce mois-ci.
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+            Découvrez les talents qui font avancer l&apos;entrepreneuriat
+            solidaire.
           </p>
         </div>
 
-        <div className="relative max-w-5xl mx-auto">
+        <div className="relative">
           {/* Navigation Buttons */}
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 z-10 hidden md:flex rounded-full shadow-lg hover:shadow-xl hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 z-10 hidden md:flex rounded-full h-10 w-10 border-border/50 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
             onClick={goLeft}
             disabled={currentIndex === 0}
           >
@@ -98,7 +99,7 @@ export function FeaturedEntrepreneurs() {
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 z-10 hidden md:flex rounded-full shadow-lg hover:shadow-xl hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 z-10 hidden md:flex rounded-full h-10 w-10 border-border/50 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200"
             onClick={goRight}
             disabled={currentIndex === maxIndex}
           >
@@ -106,48 +107,44 @@ export function FeaturedEntrepreneurs() {
           </Button>
 
           {/* Cards Container */}
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-5">
             {visibleEntrepreneurs.map((entrepreneur) => (
               <Card
                 key={entrepreneur.id}
-                className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group relative overflow-hidden border border-border/50 bg-card/50 backdrop-blur-sm hover:border-border hover:shadow-lg transition-all duration-300"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <CardHeader className="text-center pb-2 relative">
-                  <Avatar className="w-18 h-18 mx-auto mb-4 ring-4 ring-primary/10 group-hover:ring-primary/20 transition-all">
-                    <AvatarFallback className="bg-gradient-to-br from-primary/20 to-accent/20 text-primary text-lg font-semibold">
+                <CardHeader className="text-center pb-3 relative">
+                  <Avatar className="w-16 h-16 mx-auto mb-4 ring-2 ring-border/50 group-hover:ring-primary/20 transition-all">
+                    <AvatarFallback className="bg-muted text-foreground text-base font-medium">
                       {entrepreneur.name
                         .split(" ")
                         .map((n) => n[0])
                         .join("")}
                     </AvatarFallback>
                   </Avatar>
-                  <CardTitle className="text-lg">{entrepreneur.name}</CardTitle>
-                  <p className="text-primary font-semibold">
+                  <CardTitle className="text-base font-semibold">
+                    {entrepreneur.name}
+                  </CardTitle>
+                  <p className="text-primary font-medium text-sm">
                     {entrepreneur.project}
                   </p>
                 </CardHeader>
-                <CardContent className="text-center relative">
-                  <Badge variant="secondary" className="mb-3 bg-secondary/80">
+                <CardContent className="text-center relative pt-0">
+                  <Badge
+                    variant="secondary"
+                    className="mb-3 text-xs font-medium"
+                  >
                     {entrepreneur.sector}
                   </Badge>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2 leading-relaxed">
                     {entrepreneur.description}
                   </p>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10">
-                    <svg
-                      className="w-4 h-4 text-accent"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <span className="font-semibold text-sm">
-                      {entrepreneur.points}
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/8 border border-accent/15">
+                    <Star className="w-3.5 h-3.5 text-accent fill-accent" />
+                    <span className="font-semibold text-sm text-foreground">
+                      {entrepreneur.points.toLocaleString("fr-FR")}
                     </span>
-                    <span className="text-muted-foreground text-sm">
-                      points
-                    </span>
+                    <span className="text-muted-foreground text-xs">pts</span>
                   </div>
                 </CardContent>
               </Card>
@@ -155,10 +152,11 @@ export function FeaturedEntrepreneurs() {
           </div>
 
           {/* Mobile Navigation */}
-          <div className="flex justify-center gap-4 mt-6 md:hidden">
+          <div className="flex justify-center gap-3 mt-6 md:hidden">
             <Button
               variant="outline"
               size="icon"
+              className="rounded-full h-9 w-9"
               onClick={goLeft}
               disabled={currentIndex === 0}
             >
@@ -167,6 +165,7 @@ export function FeaturedEntrepreneurs() {
             <Button
               variant="outline"
               size="icon"
+              className="rounded-full h-9 w-9"
               onClick={goRight}
               disabled={currentIndex === maxIndex}
             >
@@ -175,14 +174,14 @@ export function FeaturedEntrepreneurs() {
           </div>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center gap-2 mt-6">
+          <div className="flex justify-center gap-1.5 mt-8">
             {Array.from({ length: maxIndex + 1 }).map((_, index) => (
               <button
                 key={index}
-                className={`w-2 h-2 rounded-full transition-colors ${
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
                   index === currentIndex
-                    ? "bg-primary"
-                    : "bg-muted-foreground/30"
+                    ? "bg-primary w-4"
+                    : "bg-muted-foreground/25 hover:bg-muted-foreground/40"
                 }`}
                 onClick={() => setCurrentIndex(index)}
               />
