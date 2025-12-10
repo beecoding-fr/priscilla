@@ -83,6 +83,11 @@ enum TransactionStatus {
   REJECTED
 }
 
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
@@ -92,6 +97,10 @@ model User {
   lastName      String?
   image         String?
   role          UserRole  @default(JE)
+  status        UserStatus @default(ACTIVE)
+  businessSector String?   @map("business_sector")
+  department    String?
+  region        String?
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
 

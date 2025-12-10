@@ -2,6 +2,8 @@ export {
   type UserRepositoryPort,
   type CreateUserData,
   type UpdateUserData,
+  type JeWithStats,
+  type JeListFilters,
 } from "./UserRepositoryPort";
 export { type SubscriptionPlanRepositoryPort } from "./SubscriptionPlanRepositoryPort";
 export {
@@ -28,3 +30,11 @@ export {
   type CreateCheckoutSessionResult,
 } from "./PaymentProviderPort";
 export { type EmailSenderPort } from "./EmailSenderPort";
+export {
+  type AdminDashboardRepositoryPort,
+  type AdminDashboardStatsDTO,
+  type SubscriptionDistributionDTO,
+  type TopJEByPointsDTO,
+  type TopJEByTransactionsDTO,
+  type TopESBySolicitationsDTO,
+} from "./AdminDashboardRepositoryPort";

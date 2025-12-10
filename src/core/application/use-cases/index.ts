@@ -23,3 +23,29 @@ export {
   type CreateSolidarityCompanyProfileInput,
   type CreateSolidarityCompanyProfileOutput,
 } from "./CreateSolidarityCompanyProfile";
+export {
+  GetAdminDashboardStats,
+  type GetAdminDashboardStatsOutput,
+} from "./GetAdminDashboardStats";
+export {
+  GetAllJeunes,
+  type GetAllJeunesInput,
+  type GetAllJeunesOutput,
+  type JeOutputDTO,
+} from "./GetAllJeunes";
+export {
+  GetJeDetails,
+  type GetJeDetailsInput,
+  type GetJeDetailsOutput,
+  type JeDetailsDTO,
+} from "./GetJeDetails";
+export {
+  SuspendJeAccount,
+  type SuspendJeAccountInput,
+  type SuspendJeAccountOutput,
+} from "./SuspendJeAccount";
+export {
+  ReactivateJeAccount,
+  type ReactivateJeAccountInput,
+  type ReactivateJeAccountOutput,
+} from "./ReactivateJeAccount";

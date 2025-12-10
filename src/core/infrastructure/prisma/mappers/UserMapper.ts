@@ -1,5 +1,5 @@
 import { User as PrismaUser } from "@prisma/client";
-import { User, Email, UserRole } from "@/core/domain";
+import { User, Email, UserRole, UserStatus } from "@/core/domain";
 
 export class UserMapper {
   static toDomain(prismaUser: PrismaUser): User {
@@ -9,6 +9,10 @@ export class UserMapper {
       firstName: prismaUser.firstName,
       lastName: prismaUser.lastName,
       role: prismaUser.role as UserRole,
+      status: prismaUser.status as UserStatus,
+      businessSector: prismaUser.businessSector,
+      department: prismaUser.department,
+      region: prismaUser.region,
       emailVerified: prismaUser.emailVerified,
       createdAt: prismaUser.createdAt,
       updatedAt: prismaUser.updatedAt,

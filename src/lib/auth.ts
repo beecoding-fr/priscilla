@@ -25,6 +25,8 @@ declare module "next-auth" {
 interface ExtendedJWT extends JWT {
   id: string;
   role: UserRole;
+  firstName: string | null;
+  lastName: string | null;
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -67,6 +69,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null;
         }
 
+        console.log("User authenticated:", user);
+
         return {
           id: user.id,
           email: user.email,
@@ -83,6 +87,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.id = user.id!;
         (token as ExtendedJWT).role = user.role;
+        (token as ExtendedJWT).firstName =
+          (user as { firstName?: string | null }).firstName ?? null;
+        (token as ExtendedJWT).lastName =
+          (user as { lastName?: string | null }).lastName ?? null;
       }
       return token;
     },
@@ -90,6 +98,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token) {
         session.user.id = token.id as string;
         session.user.role = (token as ExtendedJWT).role;
+        session.user.firstName = (token as ExtendedJWT).firstName;
+        session.user.lastName = (token as ExtendedJWT).lastName;
       }
       return session;
     },

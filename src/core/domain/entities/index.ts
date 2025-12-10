@@ -1,4 +1,4 @@
-export { User, type UserProps, type UserRole } from "./User";
+export { User, type UserProps, type UserRole, type UserStatus } from "./User";
 export {
   Subscription,
   type SubscriptionProps,

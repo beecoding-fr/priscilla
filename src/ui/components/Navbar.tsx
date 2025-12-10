@@ -55,7 +55,7 @@ export function Navbar() {
         <nav className="flex items-center gap-3">
           {session?.user ? (
             <>
-              <Link href="/dashboard">
+              {/* <Link href="/dashboard">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -64,7 +64,7 @@ export function Navbar() {
                   <LayoutDashboard className="w-4 h-4" />
                   Dashboard
                 </Button>
-              </Link>
+              </Link> */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -138,7 +138,7 @@ export function Navbar() {
                   size="sm"
                   className="rounded-lg shadow-md shadow-primary/20"
                 >
-                  Se connnecter
+                  Se connecter
                 </Button>
               </Link>
             </div>
