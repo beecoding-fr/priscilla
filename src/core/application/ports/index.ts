@@ -24,6 +24,11 @@ export {
 } from "./TransactionRepositoryPort";
 export { type PointsWalletRepositoryPort } from "./PointsWalletRepositoryPort";
 export {
+  type PointsTierRepositoryPort,
+  type CreatePointsTierData,
+  type UpdatePointsTierData,
+} from "./PointsTierRepositoryPort";
+export {
   type PaymentProviderPort,
   type CreateCustomerResult,
   type CreateSubscriptionResult,

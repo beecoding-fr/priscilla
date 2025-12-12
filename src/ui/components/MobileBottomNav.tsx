@@ -51,7 +51,7 @@ const bottomNavConfig: BottomNavConfig = {
     },
     {
       label: "Config",
-      href: "/dashboard/admin/settings",
+      href: "/dashboard/admin/configuration",
       icon: <Settings className="w-5 h-5" />,
     },
   ],

@@ -6,6 +6,7 @@ import {
   PrismaUserRepository,
   PrismaTransactionRepository,
   PrismaPointsWalletRepository,
+  prismaPointsTierRepository,
 } from "@/core/infrastructure";
 import {
   ValidationError,
@@ -53,7 +54,8 @@ export async function POST(
     const validateTransaction = new ValidateTransaction(
       userRepository,
       transactionRepository,
-      pointsWalletRepository
+      pointsWalletRepository,
+      prismaPointsTierRepository
     );
 
     const result = await validateTransaction.execute({

@@ -49,3 +49,22 @@ export {
   type ReactivateJeAccountInput,
   type ReactivateJeAccountOutput,
 } from "./ReactivateJeAccount";
+export {
+  GetAllPointsTiers,
+  type GetAllPointsTiersOutput,
+} from "./GetAllPointsTiers";
+export {
+  CreatePointsTier,
+  type CreatePointsTierInput,
+  type CreatePointsTierOutput,
+} from "./CreatePointsTier";
+export {
+  UpdatePointsTier,
+  type UpdatePointsTierInput,
+  type UpdatePointsTierOutput,
+} from "./UpdatePointsTier";
+export {
+  DeletePointsTier,
+  type DeletePointsTierInput,
+  type DeletePointsTierOutput,
+} from "./DeletePointsTier";

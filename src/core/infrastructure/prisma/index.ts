@@ -6,6 +6,10 @@ export { PrismaSolidarityCompanyRepository } from "./PrismaSolidarityCompanyRepo
 export { PrismaTransactionRepository } from "./PrismaTransactionRepository";
 export { PrismaPointsWalletRepository } from "./PrismaPointsWalletRepository";
 export {
+  PrismaPointsTierRepository,
+  prismaPointsTierRepository,
+} from "./PrismaPointsTierRepository";
+export {
   PrismaAdminDashboardRepository,
   prismaAdminDashboardRepository,
 } from "./PrismaAdminDashboardRepository";

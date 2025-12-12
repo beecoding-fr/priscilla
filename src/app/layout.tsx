@@ -27,11 +27,11 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         <Providers>
           <Navbar />
-          <main>{children}</main>
+          <main className="overflow-x-auto">{children}</main>
         </Providers>
       </body>
     </html>

@@ -3,10 +3,12 @@ import {
   ValidationError,
   UnauthorizedError,
 } from "@/core/domain/errors";
+import { PointsCalculationService, TransactionAmount } from "@/core/domain";
 import {
   UserRepositoryPort,
   TransactionRepositoryPort,
   PointsWalletRepositoryPort,
+  PointsTierRepositoryPort,
 } from "../ports";
 
 export interface ValidateTransactionInput {
@@ -24,13 +26,12 @@ export interface ValidateTransactionOutput {
   };
 }
 
-const POINTS_MULTIPLIER = 1; // 1 point per euro
-
 export class ValidateTransaction {
   constructor(
     private readonly userRepository: UserRepositoryPort,
     private readonly transactionRepository: TransactionRepositoryPort,
-    private readonly pointsWalletRepository: PointsWalletRepositoryPort
+    private readonly pointsWalletRepository: PointsWalletRepositoryPort,
+    private readonly pointsTierRepository: PointsTierRepositoryPort
   ) {}
 
   async execute(
@@ -61,9 +62,15 @@ export class ValidateTransaction {
     }
 
     if (input.approve) {
-      // Calculate points earned
-      const pointsEarned =
-        transaction.amount.calculatePoints(POINTS_MULTIPLIER);
+      // Get configured points tiers
+      const tiers = await this.pointsTierRepository.findAllActive();
+
+      // Calculate points using the domain service with configured tiers
+      const points = PointsCalculationService.calculatePoints(
+        transaction.amount,
+        tiers
+      );
+      const pointsEarned = points.getValue();
 
       // Update transaction to validated
       const updatedTransaction = await this.transactionRepository.update(

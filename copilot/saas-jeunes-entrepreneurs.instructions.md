@@ -223,6 +223,106 @@ For UI and UX:
   - Prefer clear metrics and charts over dense tables when possible
   - Highlight key actions (CTA buttons, primary flows like "Create transaction", "Invite ES", "Subscribe now")
 
+## Reusable UI Components & Patterns
+
+### Component Reuse Philosophy
+
+**DRY principle for UI**: When a visual pattern or layout structure appears in multiple places, **always extract it into a reusable component**. This ensures:
+
+- Visual consistency across the entire application
+- Easier maintenance (change once, update everywhere)
+- Faster development of new features
+
+### Where to Place Shared Components
+
+- **Global shared components**: `src/ui/components/` — used across multiple features (e.g., layouts, generic cards)
+- **Feature-specific shared components**: `src/ui/features/<feature>/` — shared within a feature (e.g., `src/ui/features/admin/`)
+- **shadcn/ui components**: `src/components/ui/` — base UI primitives
+
+### Page Layout Components
+
+For dashboard/authenticated pages, use shared layout components to ensure consistent structure.
+
+**Example: AdminPageLayout** (in `src/ui/features/admin/`):
+
+```tsx
+import { AdminPageLayout } from "@/ui/features/admin";
+import { Users } from "lucide-react";
+
+export default function MyPage() {
+  return (
+    <AdminPageLayout
+      badge={{
+        icon: <Users className="h-4 w-4" />,
+        label: "Section label",
+      }}
+      title="Page Title"
+      description="Page description text"
+    >
+      {/* Page content */}
+    </AdminPageLayout>
+  );
+}
+```
+
+When creating pages for other roles (JE, ES), follow the same pattern:
+
+- Create `JePageLayout`, `EsPageLayout` if needed in their respective feature folders
+- Or create a generic `DashboardPageLayout` in `src/ui/components/` if the structure is identical
+
+### List/Table Layout Components
+
+For pages displaying lists or tables, use the shared list components:
+
+- `AdminListContainer` — wrapper with loading state and consistent spacing
+- `AdminListHeader` — search bar and action button
+- `AdminListTableWrapper` — table wrapper with borders and shadows
+- `AdminListFooter` — footer with count and status summary
+- `AdminListEmptyState` — empty state with icon, title, description and action
+
+**These patterns apply to ALL list pages** (admin, JE, ES). If you create list pages for JE or ES dashboards, either:
+
+1. Reuse the admin components if styling matches
+2. Create equivalent components in the appropriate feature folder
+3. Extract to a generic `ListLayout` in `src/ui/components/` for app-wide reuse
+
+### Table Styling Convention
+
+For all tables across the app:
+
+- Header row: `<TableRow className="bg-muted/50">`
+- Header cells: `<TableHead className="font-semibold">`
+- Body rows: `<TableRow className="hover:bg-muted/30">`
+- Table wrapper: `rounded-lg border border-border/50 bg-card shadow-sm overflow-hidden`
+- Status badges use consistent colors:
+  - Active/Success: `bg-green-100 text-green-700 border-green-200`
+  - Warning: `bg-amber-100 text-amber-700 border-amber-200`
+  - Error/Suspended: `bg-red-100 text-red-700 border-red-200`
+  - Neutral/Inactive: `bg-muted text-muted-foreground`
+
+### Component Creation Guidelines
+
+When creating ANY new feature or page:
+
+1. **Check for existing reusable components first** — look in `src/ui/components/` and `src/ui/features/`
+2. **If a pattern repeats twice, extract it immediately** — don't wait for a third occurrence
+3. **Name components by their purpose**, not their location (e.g., `PageLayout` not `AdminPageLayout` if it's generic)
+4. **Export all shared components** from the feature's `index.ts`
+5. **Match visual consistency** — use the same spacing, borders, shadows, and colors as existing pages
+6. **Document props with TypeScript interfaces** — make components easy to understand and use
+
+### Form Components
+
+For forms, ensure consistency:
+
+- Input height: `h-11`
+- Input styling: `rounded-lg`
+- Labels: `text-sm font-medium`
+- Spacing between fields: `space-y-4` or `space-y-5`
+- Icons in inputs: absolute positioned on the left with `pl-10` on input
+
+If form patterns repeat, extract them (e.g., `FormField`, `FormSection`, `FormActions`).
+
 ## Design System & Visual Guidelines
 
 ### Color Palette

@@ -55,16 +55,16 @@ export function Navbar() {
         <nav className="flex items-center gap-3">
           {session?.user ? (
             <>
-              {/* <Link href="/dashboard">
+              <Link href="/dashboard">
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="sm"
                   className="hidden sm:flex gap-2 text-muted-foreground hover:text-foreground"
                 >
                   <LayoutDashboard className="w-4 h-4" />
                   Dashboard
                 </Button>
-              </Link> */}
+              </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button

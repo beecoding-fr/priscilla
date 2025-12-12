@@ -53,7 +53,7 @@ const menuConfig: MenuConfig = {
     },
     {
       label: "Configuration",
-      href: "/dashboard/admin/settings",
+      href: "/dashboard/admin/configuration",
       icon: <Settings className="w-5 h-5" />,
     },
   ],
@@ -138,26 +138,24 @@ export function DashboardSidebar() {
   };
 
   return (
-    <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:min-h-[calc(100vh-4rem)] lg:border-r lg:border-border/50 lg:bg-card/50">
-      <div className="sticky top-16">
-        <nav className="flex flex-col gap-1 p-3">
-          {menuItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200",
-                isActive(item.href)
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}
-            >
-              {item.icon}
-              <span>{item.label}</span>
-            </Link>
-          ))}
-        </nav>
-      </div>
+    <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:top-16 lg:bottom-0 lg:left-0 lg:border-r lg:border-border/50 lg:bg-card/50 lg:overflow-y-auto">
+      <nav className="flex flex-col gap-1 p-3">
+        {menuItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={cn(
+              "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200",
+              isActive(item.href)
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            )}
+          >
+            {item.icon}
+            <span>{item.label}</span>
+          </Link>
+        ))}
+      </nav>
     </aside>
   );
 }

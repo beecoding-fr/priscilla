@@ -204,3 +204,17 @@ model PointsWallet {
 
   @@map("points_wallets")
 }
+
+// Points configuration - amount tiers
+model PointsTier {
+  id              String   @id @default(cuid())
+  minAmountCents  Int      @map("min_amount_cents") // Minimum amount in cents (inclusive)
+  maxAmountCents  Int?     @map("max_amount_cents") // Maximum amount in cents (exclusive), null = unlimited
+  pointsAwarded   Int      @map("points_awarded")   // Points awarded for this tier
+  label           String?                           // Optional label (e.g., "Bronze", "Silver", "Gold")
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("points_tiers")
+}

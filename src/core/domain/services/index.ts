@@ -1,0 +1,1 @@
+export { PointsCalculationService } from "./PointsCalculationService";

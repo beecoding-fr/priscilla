@@ -19,3 +19,4 @@ export {
   type TransactionStatus,
 } from "./Transaction";
 export { PointsWallet, type PointsWalletProps } from "./PointsWallet";
+export { PointsTier, type PointsTierProps } from "./PointsTier";

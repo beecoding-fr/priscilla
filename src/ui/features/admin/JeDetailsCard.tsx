@@ -99,7 +99,7 @@ export function JeDetailsCard({ je: initialJe }: JeDetailsCardProps) {
     if (!je.subscriptionPlanName) {
       return (
         <Badge variant="secondary" className="bg-muted text-muted-foreground">
-          Aucun abonnement
+          Aucun
         </Badge>
       );
     }
@@ -132,21 +132,21 @@ export function JeDetailsCard({ je: initialJe }: JeDetailsCardProps) {
       {/* Main card */}
       <Card className="border-border/50 shadow-lg">
         <CardHeader className="pb-4">
-          <div className="flex items-start justify-between">
+          <div className="flex flex-col gap-4">
             <div>
               <CardTitle className="text-2xl">{je.fullName}</CardTitle>
               <CardDescription className="flex items-center gap-2 mt-1">
                 <Mail className="h-4 w-4" />
-                {je.email}
+                <span className="truncate">{je.email}</span>
               </CardDescription>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               {getStatusBadge()}
               {je.status === "ACTIVE" ? (
                 <Button
                   variant="destructive"
                   size="sm"
-                  className="gap-2"
+                  className="gap-2 w-full sm:w-auto"
                   onClick={() => handleStatusChange("suspend")}
                   disabled={isLoading}
                 >
@@ -161,7 +161,7 @@ export function JeDetailsCard({ je: initialJe }: JeDetailsCardProps) {
                 <Button
                   variant="default"
                   size="sm"
-                  className="gap-2 bg-green-600 hover:bg-green-700"
+                  className="gap-2 bg-green-600 hover:bg-green-700 w-full sm:w-auto"
                   onClick={() => handleStatusChange("reactivate")}
                   disabled={isLoading}
                 >
@@ -195,16 +195,6 @@ export function JeDetailsCard({ je: initialJe }: JeDetailsCardProps) {
                   <p className="font-medium">
                     {je.businessSector || "Non renseigné"}
                   </p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Département</p>
-                  <p className="font-medium">
-                    {je.department || "Non renseigné"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Région</p>
-                  <p className="font-medium">{je.region || "Non renseigné"}</p>
                 </div>
               </div>
             </div>
@@ -301,7 +291,7 @@ export function JeDetailsCard({ je: initialJe }: JeDetailsCardProps) {
           {/* Additional info */}
           <Separator className="my-6" />
 
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm text-muted-foreground">
             <p>
               Email vérifié:{" "}
               {je.emailVerified ? (

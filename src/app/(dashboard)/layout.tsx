@@ -7,12 +7,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-[calc(100vh-4rem)]">
-      {/* Desktop sidebar */}
+    <div className="min-h-[calc(100vh-4rem)]">
+      {/* Desktop sidebar (fixed) */}
       <DashboardSidebar />
 
-      {/* Main content */}
-      <div className="flex-1 pb-20 lg:pb-0">{children}</div>
+      {/* Main content - offset by sidebar width on desktop */}
+      <div className="lg:ml-64 pb-20 lg:pb-0">{children}</div>
 
       {/* Mobile bottom navigation */}
       <MobileBottomNav />
