@@ -41,7 +41,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  /* Custom colors for the theme */
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
   --color-warning: var(--warning);
@@ -50,40 +49,33 @@
 
 :root {
   --radius: 0.625rem;
-  /* Professional deep blue / slate palette */
   --background: oklch(0.99 0.002 250);
   --foreground: oklch(0.15 0.015 250);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.15 0.015 250);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.15 0.015 250);
-  /* Deep navy blue - professional, trustworthy */
   --primary: oklch(0.45 0.16 250);
   --primary-foreground: oklch(0.99 0 0);
-  /* Warm slate for secondary */
   --secondary: oklch(0.97 0.005 250);
   --secondary-foreground: oklch(0.35 0.04 250);
   --muted: oklch(0.97 0.003 250);
   --muted-foreground: oklch(0.45 0.02 250);
-  /* Teal accent - modern, growth-oriented */
   --accent: oklch(0.65 0.14 180);
   --accent-foreground: oklch(0.15 0.06 180);
   --destructive: oklch(0.55 0.22 25);
   --border: oklch(0.92 0.008 250);
   --input: oklch(0.94 0.005 250);
   --ring: oklch(0.45 0.16 250);
-  /* Success & Warning */
   --success: oklch(0.6 0.16 155);
   --success-foreground: oklch(0.99 0 0);
   --warning: oklch(0.75 0.14 75);
   --warning-foreground: oklch(0.25 0.06 75);
-  /* Charts - sophisticated palette */
   --chart-1: oklch(0.45 0.16 250);
   --chart-2: oklch(0.6 0.16 155);
   --chart-3: oklch(0.65 0.14 180);
   --chart-4: oklch(0.55 0.14 310);
   --chart-5: oklch(0.7 0.12 45);
-  /* Sidebar */
   --sidebar: oklch(0.98 0.003 250);
   --sidebar-foreground: oklch(0.15 0.015 250);
   --sidebar-primary: oklch(0.45 0.16 250);
@@ -101,7 +93,6 @@
   --card-foreground: oklch(0.96 0.005 250);
   --popover: oklch(0.16 0.012 250);
   --popover-foreground: oklch(0.96 0.005 250);
-  /* Lighter blue in dark mode */
   --primary: oklch(0.65 0.14 250);
   --primary-foreground: oklch(0.12 0.01 250);
   --secondary: oklch(0.22 0.015 250);
@@ -142,7 +133,6 @@
   }
 }
 
-/* Professional gradient utilities */
 @layer utilities {
   .gradient-primary {
     background: linear-gradient(
@@ -187,7 +177,6 @@
     background-clip: text;
   }
 
-  /* Glass effect utility */
   .glass {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
@@ -226,7 +215,6 @@
   }
 }
 
-/* Sonner toast overrides */
 @layer components {
   [data-sonner-toast][data-type="success"] {
     background: white !important;

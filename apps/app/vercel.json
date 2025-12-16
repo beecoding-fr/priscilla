@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd ../.. && pnpm turbo run build --filter=@priscilla/app",
+  "installCommand": "pnpm install",
+  "framework": "nextjs"
+}
